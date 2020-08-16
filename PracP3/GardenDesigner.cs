@@ -116,18 +116,40 @@ namespace PracP4
 
         private void buttonFinish_Click(object sender, EventArgs e)
         {
-            // Generates a text file that lists all the plants in the proposed garden and the total cost
+            //// Generates a text file  
+            //StreamWriter outputFile;
+            //string filename = "WriteLineExample output.txt";
+            //// create empty file 
+            //outputFile = File.CreateText(filename); 
+            //// add three lines of text (test)
+            //outputFile.WriteLine("Mason");
+            //outputFile.WriteLine("Darius");
+            //outputFile.WriteLine("Liam");
+            //// close the stream/file, ensuring all data will be saved in the file
+            //outputFile.Close();
+            //MessageBox.Show("File \"" + filename + "\" created containing three lines.");
+
+            //that lists all the plants in the proposed garden
+            List<string> plantName = new List<string>();
+            List<int> sizePlant = new List<int>();
+            List<decimal> costPlant = new List<decimal>();
+
+            //add name, size and cost to their list
+            plantName.Add(textBoxName.Text);
+            sizePlant.Add(int.Parse(textBoxSize.Text));
+            costPlant.Add(decimal.Parse(textBoxPrice.Text));
+
             StreamWriter outputFile;
-            string filename = "WriteLineExample output.txt";
-            // create empty file 
-            outputFile = File.CreateText(filename); 
-            // add three lines of text (test)
-            outputFile.WriteLine("Mason");
-            outputFile.WriteLine("Darius");
-            outputFile.WriteLine("Liam");
-            // close the stream/file, ensuring all data will be saved in the file
+            string filename = "output.txt";
+            outputFile = File.CreateText(filename);
+
+            outputFile.Write(plantName[0]);
+            outputFile.Write(sizePlant[0]);
+            outputFile.Write(costPlant[0]);
             outputFile.Close();
             MessageBox.Show("File \"" + filename + "\" created containing three lines.");
+
+            // and the total cost
             // Use the ToString() of the plant object to output the plant information in the correct format.
         }
     }
