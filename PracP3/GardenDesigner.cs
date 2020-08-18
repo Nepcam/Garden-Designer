@@ -143,8 +143,8 @@ namespace PracP4
             string filename = "output.txt";
             outputFile = File.CreateText(filename);
 
-            outputFile.Write(plantName[0]);
-            outputFile.Write(sizePlant[0]);
+            outputFile.Write(plantName[0].PadRight(10));
+            outputFile.Write(sizePlant[0].ToString().PadRight(5));
             outputFile.Write(costPlant[0]);
             outputFile.Close();
             MessageBox.Show("File \"" + filename + "\" created containing three lines.");
