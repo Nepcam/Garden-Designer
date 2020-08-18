@@ -9,6 +9,11 @@ namespace PracP4
 {
     public partial class GardenDesigner : Form
     {
+        // declare variables
+        string plantName = "";
+        int sizePlant = 0;
+        decimal costPlant = 0;
+
         //####################################################################
         //# Instance Variables
         /// <summary>
@@ -116,38 +121,39 @@ namespace PracP4
 
         private void buttonFinish_Click(object sender, EventArgs e)
         {
-            //// Generates a text file  
-            //StreamWriter outputFile;
-            //string filename = "WriteLineExample output.txt";
-            //// create empty file 
-            //outputFile = File.CreateText(filename); 
-            //// add three lines of text (test)
-            //outputFile.WriteLine("Mason");
-            //outputFile.WriteLine("Darius");
-            //outputFile.WriteLine("Liam");
-            //// close the stream/file, ensuring all data will be saved in the file
-            //outputFile.Close();
-            //MessageBox.Show("File \"" + filename + "\" created containing three lines.");
+            // add input from textBoxes
+            plantName = textBoxName.Text;
+            sizePlant = int.Parse(textBoxSize.Text);
+            costPlant = decimal.Parse(textBoxPrice.Text);
 
-            //that lists all the plants in the proposed garden
-            List<string> plantName = new List<string>();
-            List<int> sizePlant = new List<int>();
-            List<decimal> costPlant = new List<decimal>();
-
-            //add name, size and cost to their list
-            plantName.Add(textBoxName.Text);
-            sizePlant.Add(int.Parse(textBoxSize.Text));
-            costPlant.Add(decimal.Parse(textBoxPrice.Text));
-
-            StreamWriter outputFile;
+            // get the writer 
+            StreamWriter writer;
+            // create a text file to write to
             string filename = "output.txt";
-            outputFile = File.CreateText(filename);
 
-            outputFile.Write(plantName[0].PadRight(10));
-            outputFile.Write(sizePlant[0].ToString().PadRight(5));
-            outputFile.Write(costPlant[0]);
-            outputFile.Close();
-            MessageBox.Show("File \"" + filename + "\" created containing three lines.");
+            if (!File.Exists(filename))
+            {
+                // write to the output text file
+                using (writer = File.AppendText(filename))
+                {
+                    // write to file using input from textboxes 
+                    writer.Write(plantName.ToString().PadRight(10));
+                    writer.Write(sizePlant.ToString().PadRight(5));
+                    writer.Write(costPlant.ToString());
+                    writer.Close();
+                    MessageBox.Show("File \"" + filename + "\"");
+                }
+            }
+
+            // open file to read from
+            using (StreamReader sr = File.OpenText(filename))
+            {
+                string s = "";
+                while ((s = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(s);
+                }
+            }
 
             // and the total cost
             // Use the ToString() of the plant object to output the plant information in the correct format.

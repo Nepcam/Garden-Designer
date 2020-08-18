@@ -92,6 +92,11 @@ namespace PracP4
             set { _price = value; }
         }
 
+        //public override string ToString()
+        //{
+        //    return 
+        //}
+
     }
 
 
