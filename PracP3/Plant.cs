@@ -92,10 +92,14 @@ namespace PracP4
             set { _price = value; }
         }
 
-        //public override string ToString()
-        //{
-        //    return 
-        //}
+        /// <summary>
+        /// Gets all the information about a plant
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Name.PadRight(15) + Size.ToString().PadRight(5) + Price.ToString();
+        }
 
     }
 

@@ -100,7 +100,8 @@ namespace PracP4
 
         /// <summary>
         /// Mouse-click handler of the picture box.
-        /// You need to change this method.
+        /// You need to change this method, so that it checks whether there 
+        /// already is a plant at the position of this event
         /// </summary>
         private void pictureBoxGarden_MouseClick(object sender, MouseEventArgs e)
         {
@@ -121,37 +122,57 @@ namespace PracP4
 
         private void buttonFinish_Click(object sender, EventArgs e)
         {
-            // add input from textBoxes
-            plantName = textBoxName.Text;
-            sizePlant = int.Parse(textBoxSize.Text);
-            costPlant = decimal.Parse(textBoxPrice.Text);
-
-            // get the writer 
+            //MessageBox.Show(plants[0].Name);
+            // set variables + total cost var
+            // make file get the writer 
             StreamWriter writer;
             // create a text file to write to
             string filename = "output.txt";
-
-            if (!File.Exists(filename))
+            // for every plant in List<Plant> plants
+            for (int i = 0; i <= plants.Count; i++)
             {
-                // write to the output text file
-                using (writer = File.AppendText(filename))
+                if (!File.Exists(filename))
                 {
-                    // write to file using input from textboxes 
-                    writer.Write(plantName.ToString().PadRight(10));
-                    writer.Write(sizePlant.ToString().PadRight(5));
-                    writer.Write(costPlant.ToString());
-                    writer.Close();
-                    MessageBox.Show("File \"" + filename + "\"");
+                    // write to the text file
+                    using (writer = File.AppendText(filename))
+                    {
+                        // write to file from user textbox input
+                        writer.Write(plants[i].Name.PadRight(10));
+                        writer.Write(plants[i].Size.ToString().PadRight(10));
+                        writer.Write(plants[i].Price.ToString());
+                        writer.Close();
+                        MessageBox.Show("File \"" + filename + "\"");
+                    }
                 }
             }
+     
+            //{
+            //    
+            //    if (!File.Exists(filename))
+            //    {
+            //        // write to the output text file
+            //        using (writer = File.AppendText(filename))
+            //        {
+            //            // write to file using input from textboxes 
+            //            writer.Write(plant.Name.ToString().PadRight(15));
+            //            writer.Write(plant.Size.ToString().PadRight(10));
+            //            writer.Write(plant.Price.ToString());
+            //            
+            //            
+            //        }
+            //        //plants.Add(plant);
+            //    }
+            //}           
+            // print total cost
+            // close file
 
-            // open file to read from
+            // open textfile to read from
             using (StreamReader sr = File.OpenText(filename))
             {
-                string s = "";
-                while ((s = sr.ReadLine()) != null)
+                string text = File.ReadAllText("output.txt");
+                while ((text = sr.ReadLine()) != null)
                 {
-                    Console.WriteLine(s);
+                    Console.WriteLine(text);
                 }
             }
 
