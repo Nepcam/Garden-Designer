@@ -120,8 +120,19 @@ namespace PracP4
                 /// Use this call after any change to the list to force redraw of the picture box:
                 pictureBoxGarden.Refresh();
             }
+
+            foreach (Plant plant in plants)
+            {
+                if(plant.IsClicked(e.X, e.Y))
+                {
+                    MessageBox.Show("There already is a plant at the position of the mouse click");
+                }
+            }
         }
 
+        /// <summary>
+        /// Generates a text file that lists all plants in the proposed garden
+        /// </summary>
         private void buttonFinish_Click(object sender, EventArgs e)
         {
             // set variables
@@ -139,7 +150,9 @@ namespace PracP4
                     tw.Write("The total cost of the proposed garden is: {0}", total);
                     tw.Close();
                     MessageBox.Show("File \"" + filename + "\"");
-            }           
+            }
+
+            this.Close();
         }
     }
 }
