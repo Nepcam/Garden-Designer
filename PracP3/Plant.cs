@@ -27,19 +27,24 @@ namespace PracP4
         /// y coordinate of centre of plant.
         /// </summary>
         private int _y;
+        /// <summary>
+        /// Total cost of all plants
+        /// </summary>
+        private decimal _total;
 
         //####################################################################
         //# Constructor
         /// <summary>
         /// Creates a new plant with the given parameters.
         /// </summary>
-        public Plant(string name, int size, decimal price, int x, int y)
+        public Plant(string name, int size, decimal price, int x, int y, decimal total)
         {
             _name = name;
             _size = size;
             _price = price;
             _x = x;
             _y = y;
+            _total = total;
         }
 
         //####################################################################
@@ -84,6 +89,24 @@ namespace PracP4
         }
 
         /// <summary>
+        /// gets the x axis of the plant
+        /// </summary>
+        public int X
+        {
+            get { return _x; }
+            set { _x = value; }
+        }
+
+        /// <summary>
+        /// gets the y axis of the plant
+        /// </summary>
+        public int Y
+        {
+            get { return _y; }
+            set { _y = value; }
+        }
+
+        /// <summary>
         /// Price of plant, in dollars and cents.
         /// </summary>
         public decimal Price
@@ -93,12 +116,22 @@ namespace PracP4
         }
 
         /// <summary>
+        /// calculate the total cost
+        /// </summary>
+        public decimal Total
+        {
+            get { return _total; }
+            set { _total = value; }
+        }
+
+        /// <summary>
         /// Gets all the information about a plant
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return Name.PadRight(15) + Size.ToString().PadRight(5) + Price.ToString();
+            return Name.PadRight(10) + Size.ToString()+"cm wide at (" + X.ToString().PadRight(1)+", " + Y.ToString()+")  " + Price.ToString();
+            //return Total.ToString();
         }
 
     }

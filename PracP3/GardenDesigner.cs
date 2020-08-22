@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PracP4
@@ -112,7 +113,8 @@ namespace PracP4
                 decimal price = Convert.ToDecimal(textBoxPrice.Text);
                 int x = e.X;
                 int y = e.Y;
-                Plant plant = new Plant(name, size, price, x, y);
+                decimal total = 0;
+                Plant plant = new Plant(name, size, price, x, y, total);
                 plants.Add(plant);
                 /// *** IMPORTANT ***
                 /// Use this call after any change to the list to force redraw of the picture box:
@@ -122,62 +124,22 @@ namespace PracP4
 
         private void buttonFinish_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show(plants[0].Name);
-            // set variables + total cost var
-            // make file get the writer 
-            StreamWriter writer;
+            // set variables
+            decimal total;
             // create a text file to write to
             string filename = "output.txt";
             // for every plant in List<Plant> plants
-            for (int i = 0; i <= plants.Count; i++)
+            using (TextWriter tw = new StreamWriter("output.txt"))
             {
-                if (!File.Exists(filename))
-                {
-                    // write to the text file
-                    using (writer = File.AppendText(filename))
-                    {
-                        // write to file from user textbox input
-                        writer.Write(plants[i].Name.PadRight(10));
-                        writer.Write(plants[i].Size.ToString().PadRight(10));
-                        writer.Write(plants[i].Price.ToString());
-                        writer.Close();
-                        MessageBox.Show("File \"" + filename + "\"");
-                    }
-                }
-            }
-     
-            //{
-            //    
-            //    if (!File.Exists(filename))
-            //    {
-            //        // write to the output text file
-            //        using (writer = File.AppendText(filename))
-            //        {
-            //            // write to file using input from textboxes 
-            //            writer.Write(plant.Name.ToString().PadRight(15));
-            //            writer.Write(plant.Size.ToString().PadRight(10));
-            //            writer.Write(plant.Price.ToString());
-            //            
-            //            
-            //        }
-            //        //plants.Add(plant);
-            //    }
-            //}           
-            // print total cost
-            // close file
-
-            // open textfile to read from
-            using (StreamReader sr = File.OpenText(filename))
-            {
-                string text = File.ReadAllText("output.txt");
-                while ((text = sr.ReadLine()) != null)
-                {
-                    Console.WriteLine(text);
-                }
-            }
-
-            // and the total cost
-            // Use the ToString() of the plant object to output the plant information in the correct format.
+                foreach (Plant plant in plants)
+                    // write out the user MouseClick
+                    tw.WriteLine(plant);
+                    // add the total cost
+                    total = plants.Sum(pkg => pkg.Price);
+                    tw.Write("The total cost of the proposed garden is: {0}", total);
+                    tw.Close();
+                    MessageBox.Show("File \"" + filename + "\"");
+            }           
         }
     }
 }
