@@ -147,12 +147,17 @@ namespace PracP4
                     tw.WriteLine(plant);
                     // add the total cost
                     total = plants.Sum(pkg => pkg.Price);
-                    tw.Write("The total cost of the proposed garden is: {0}", total);
+                    tw.Write("The total cost of the proposed garden is : ${0}", total);
                     tw.Close();
                     MessageBox.Show("File \"" + filename + "\"");
             }
 
+            //this.plants.IndexOf(plants[4]);
+            //Console.WriteLine(plants[4]);
+
             this.Close();
         }
+
+        
     }
 }
