@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Feature.cs" />
     <Compile Include="GardenDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
