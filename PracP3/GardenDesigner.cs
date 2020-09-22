@@ -14,19 +14,20 @@ namespace PracP4
         string plantName = "";
         int sizePlant = 0;
         decimal costPlant = 0;
+        int length;
 
         //####################################################################
         //# Instance Variables
         /// <summary>
         /// List of all the plants currently in the garden.
         /// </summary>
-        private List<Plant> plants;
+        private List<Feature> plants;
 
         //####################################################################
         //# Constructor
         public GardenDesigner()
         {
-            plants = new List<Plant>();
+            plants = new List<Feature>();
             InitializeComponent();
         }
 
@@ -109,21 +110,24 @@ namespace PracP4
             if (CheckInput())
             {
                 string name = textBoxName.Text;
+                int length = int.Parse(textBoxLength.Text);
                 int size = Convert.ToInt32(textBoxSize.Text);
                 decimal price = Convert.ToDecimal(textBoxPrice.Text);
                 int x = e.X;
                 int y = e.Y;
                 decimal total = 0;
-                Plant plant = new Plant(name, size, price, x, y, total);
-                plants.Add(plant);
+                //Plant plant = new Plant(name, size, price, x, y, total);
+                Feature feature = new Feature(name, size, price, x, y, total, length);
+                //plants.Add(plant);
+                plants.Add(feature);
                 /// *** IMPORTANT ***
                 /// Use this call after any change to the list to force redraw of the picture box:
                 pictureBoxGarden.Refresh();
             }
 
-            foreach (Plant plant in plants)
+            foreach (Feature feature1 in plants)
             {
-                if(plant.IsClicked(e.X, e.Y))
+                if(feature1.IsClicked(e.X, e.Y))
                 {
                     MessageBox.Show("There already is a plant at the position of the mouse click");
                 }
@@ -142,9 +146,9 @@ namespace PracP4
             // for every plant in List<Plant> plants
             using (TextWriter tw = new StreamWriter("output.txt"))
             {
-                foreach (Plant plant in plants)
+                foreach (Feature feature in plants)
                     // write out the user MouseClick
-                    tw.WriteLine(plant);
+                    tw.WriteLine(feature);
                     // add the total cost
                     total = plants.Sum(pkg => pkg.Price);
                     tw.Write("The total cost of the proposed garden is : ${0}", total);
